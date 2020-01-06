@@ -11,6 +11,12 @@
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints />
@@ -18,16 +24,17 @@
         <RowConstraints />
         <RowConstraints />
         <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
     <children>
-        <Button fx:id="makeClipButton" mnemonicParsing="false" onAction="#makeMikButtonAction" text="Makeclip" GridPane.rowIndex="2" />
-        <Label text="Paperclips">
+        <Button fx:id="makeClipButton" mnemonicParsing="false" onAction="#makeMikButtonAction" text="Makeclip" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label text="Paperclips" GridPane.columnIndex="2">
             <font>
                 <Font size="52.0" />
             </font>
         </Label>
-        <Label text="Antal miks:" GridPane.rowIndex="1" />
-        <Label fx:id="antalClipsLabel" text="0" textAlignment="RIGHT" GridPane.rowIndex="1">
+        <Label text="Antal miks:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Label fx:id="antalClipsLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="100.0" />
             </GridPane.margin>
@@ -49,7 +56,7 @@
                 <Insets left="100.0" />
             </GridPane.margin>
         </Label>
-        <Label text="Antal clippers:" GridPane.rowIndex="4" />
+        <Label text="Price:" GridPane.rowIndex="4" />
         <Label fx:id="antalClippersLabel2" text="0" textAlignment="RIGHT" GridPane.rowIndex="4">
             <font>
                 <Font size="26.0" />
@@ -58,5 +65,18 @@
                 <Insets left="100.0" />
             </GridPane.margin>
         </Label>
+      <Label text="Price:" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+      <Label fx:id="antalFarmereLabel2" text="0" textAlignment="RIGHT" GridPane.columnIndex="5" GridPane.rowIndex="4">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label text="Antal Mik Farmere:" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <Label fx:id="antalFarmereLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="5" GridPane.rowIndex="3">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Button fx:id="autoFarmerButton" mnemonicParsing="false" onAction="#mikFarmerButtonAction" text="Autofarmer" visible="false" GridPane.columnIndex="4" GridPane.rowIndex="5" />
     </children>
 </GridPane>

@@ -8,9 +8,10 @@ import javafx.scene.control.Label;
 
 public class Controller {
 
-    private double antalmiks = 0;
-    private int antalClippers = 0;
-    private double antalClippersPrice=10;
+    private double antalmiks = 60;
+    private int antalClippers = 0, antalFarmere = 0;
+    private double antalClippersPrice=10, antalFarmerePrice = 60;
+
     @FXML
     private Label antalClipsLabel;
 
@@ -21,7 +22,16 @@ public class Controller {
     private Label antalClippersLabel2;
 
     @FXML
+    private Label antalFarmereLabel;
+
+    @FXML
+    private Label antalFarmereLabel2;
+
+    @FXML
     private Button autoclipperButton;
+
+    @FXML
+    private Button autoFarmerButton;
 
     @FXML
     protected void makeMikButtonAction(ActionEvent event) {
@@ -31,6 +41,8 @@ public class Controller {
 
         if (antalmiks >=antalClippersPrice) {
             autoclipperButton.setVisible(true);
+        }if (antalmiks >= antalFarmerePrice){
+            autoFarmerButton.setVisible(true);
         }
 
     }
@@ -43,7 +55,7 @@ public class Controller {
         antalClippersLabel2.setText(String.valueOf(antalClippersPrice));
         antalClippers++;
         antalClippersLabel.setText(String.valueOf(antalClippers));
-        if (antalmiks <=10){autoclipperButton.setVisible(false);}
+        if (antalmiks <=antalClippersPrice){autoclipperButton.setVisible(false);}
 
 
         // longrunning operation runs on different thread
@@ -79,14 +91,14 @@ public class Controller {
 
     }
     @FXML
-    protected void mikFarmButtonAction(ActionEvent event) {
+    protected void mikFarmerButtonAction(ActionEvent event) {
 
-        antalmiks = antalmiks-antalClippersPrice;
-        antalClippersPrice = 10+(antalClippers*3.5);
-        antalClippersLabel2.setText(String.valueOf(antalClippersPrice));
-        antalClippers++;
-        antalClippersLabel.setText(String.valueOf(antalClippers));
-        if (antalmiks <=10){autoclipperButton.setVisible(false);}
+        antalmiks = antalmiks-antalFarmerePrice;
+        antalFarmerePrice = 60+(2*(antalFarmere*10));
+        antalFarmereLabel2.setText(String.valueOf(antalFarmerePrice));
+        antalFarmere++;
+        antalFarmereLabel.setText(String.valueOf(antalFarmere));
+        if (antalmiks <=antalFarmerePrice){autoFarmerButton.setVisible(false);}
 
 
         // longrunning operation runs on different thread
@@ -98,7 +110,7 @@ public class Controller {
 
                     @Override
                     public void run() {
-                        mikClipperTask();
+                        myTask();
                     }
                 };
 
