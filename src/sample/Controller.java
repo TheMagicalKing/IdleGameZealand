@@ -8,30 +8,21 @@ import javafx.scene.control.Label;
 
 public class Controller {
 
-    private double antalmiks = 60;
-    private int antalClippers = 0, antalFarmere = 0, antalProcessors;
-    private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice;
+    private double antalmiks = 160;
+    private int antalClippers, antalFarmere, antalProcessors, antalBuilders;
+    private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360;
 
     @FXML
-    private Label antalClipsLabel;
+    private Label antalClipsLabel, antalClippersLabel, priceClippersLabel, antalFarmereLabel, priceFarmereLabel, antalProcessorsLabel, priceProcessorsLabel, antalBuildersLabel, priceBuildersLabel;
+
+
+
+
+
 
     @FXML
-    private Label antalClippersLabel;
+    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton;
 
-    @FXML
-    private Label antalClippersLabel2;
-
-    @FXML
-    private Label antalFarmereLabel;
-
-    @FXML
-    private Label antalFarmereLabel2;
-
-    @FXML
-    private Button autoclipperButton;
-
-    @FXML
-    private Button autoFarmerButton;
 
     @FXML
     protected void makeMikButtonAction(ActionEvent event) {
@@ -39,11 +30,27 @@ public class Controller {
         antalmiks++;
         antalClipsLabel.setText(String.valueOf(antalmiks));
 
-        if (antalmiks >=antalClippersPrice) {
+        if (antalmiks >= antalClippersPrice) {
             autoclipperButton.setVisible(true);
-        }if (antalmiks >= antalFarmerePrice){
-            autoFarmerButton.setVisible(true);
+        } else if (antalmiks <= antalClippersPrice) {
+            autoclipperButton.setVisible(false);
         }
+        if (antalmiks >= antalFarmerePrice) {
+            autoFarmerButton.setVisible(true);
+        } else if (antalmiks <= antalFarmerePrice) {
+            autoFarmerButton.setVisible(false);
+        }
+        if (antalmiks >= antalProcessorsPrice) {
+            autoProcessorsButton.setVisible(true);
+        } else if (antalmiks <= antalProcessorsPrice) {
+            autoProcessorsButton.setVisible(false);
+        }
+        if (antalmiks >= antalBuildersPrice) {
+            autoBuildersButton.setVisible(true);
+        } else if (antalmiks <= antalBuildersPrice) {
+            autoBuildersButton.setVisible(false);
+        }
+
 
     }
 
@@ -51,8 +58,8 @@ public class Controller {
     protected void autoclipperButtonAction(ActionEvent event) {
 
         antalmiks = antalmiks-antalClippersPrice;
-        antalClippersPrice = 10+(antalClippers*3.5);
-        antalClippersLabel2.setText(String.valueOf(antalClippersPrice));
+        antalClippersPrice = antalClippersPrice+(antalClippers*3.5);
+        priceClippersLabel.setText(String.valueOf(antalClippersPrice));
         antalClippers++;
         antalClippersLabel.setText(String.valueOf(antalClippers));
         if (antalmiks <=antalClippersPrice){autoclipperButton.setVisible(false);}
@@ -94,8 +101,8 @@ public class Controller {
     protected void mikFarmerButtonAction(ActionEvent event) {
 
         antalmiks = antalmiks-antalFarmerePrice;
-        antalFarmerePrice = 60+(2*(antalFarmere*10));
-        antalFarmereLabel2.setText(String.valueOf(antalFarmerePrice));
+        antalFarmerePrice = antalFarmerePrice+(2*(antalFarmere*10));
+        priceFarmereLabel.setText(String.valueOf(antalFarmerePrice));
         antalFarmere++;
         antalFarmereLabel.setText(String.valueOf(antalFarmere));
         if (antalmiks <=antalFarmerePrice){autoFarmerButton.setVisible(false);}
@@ -137,11 +144,11 @@ public class Controller {
     protected void mikProcessorsAction(ActionEvent event) {
 
         antalmiks = antalmiks-antalProcessorsPrice;
-        antalProcessorsPrice = 120+(2*(antalFarmere*10));
-        antalFarmereLabel2.setText(String.valueOf(antalFarmerePrice));
-        antalFarmere++;
-        antalFarmereLabel.setText(String.valueOf(antalFarmere));
-        if (antalmiks <=antalFarmerePrice){autoFarmerButton.setVisible(false);}
+        antalProcessorsPrice = antalProcessorsPrice+(2*(antalProcessors*10));
+        priceProcessorsLabel.setText(String.valueOf(antalProcessorsPrice));
+        antalProcessors++;
+        antalProcessorsLabel.setText(String.valueOf(antalProcessors));
+        if (antalmiks <=antalProcessorsPrice){autoProcessorsButton.setVisible(false);}
 
 
         // longrunning operation runs on different thread
@@ -153,7 +160,50 @@ public class Controller {
 
                     @Override
                     public void run() {
-                        myTask();
+                        mikProcessorsTask();
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                    }
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        // don't let thread prevent JVM shutdown
+        thread.setDaemon(true);
+        thread.start();
+
+
+
+    }
+    @FXML
+    protected void mikBuilderAction(ActionEvent event) {
+
+        antalmiks = antalmiks-antalBuildersPrice;
+        antalBuildersPrice = antalBuildersPrice+(2*(antalProcessors*10));
+        priceBuildersLabel.setText(String.valueOf(antalBuildersPrice));
+        antalBuilders++;
+        antalBuildersLabel.setText(String.valueOf(antalBuilders));
+        if (antalmiks <=antalBuildersPrice){autoBuildersButton.setVisible(false);}
+
+
+        // longrunning operation runs on different thread
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        mikProcessorsTask();
                     }
                 };
 
@@ -184,8 +234,11 @@ public class Controller {
     private void mikFarmerTask() {
         antalmiks= antalmiks+4;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
-    private void myTask() {
+    private void mikProcessorsTask() {
         antalmiks= antalmiks+8;
+        antalClipsLabel.setText(String.valueOf(antalmiks));    }
+    private void mikBuilderTask() {
+        antalmiks= antalmiks+16;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
 
 }
