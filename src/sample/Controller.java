@@ -9,8 +9,8 @@ import javafx.scene.control.Label;
 public class Controller {
 
     private double antalmiks = 60;
-    private int antalClippers = 0, antalFarmere = 0;
-    private double antalClippersPrice=10, antalFarmerePrice = 60;
+    private int antalClippers = 0, antalFarmere = 0, antalProcessors;
+    private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice;
 
     @FXML
     private Label antalClipsLabel;
@@ -110,6 +110,49 @@ public class Controller {
 
                     @Override
                     public void run() {
+                        mikFarmerTask();
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+                    }
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        // don't let thread prevent JVM shutdown
+        thread.setDaemon(true);
+        thread.start();
+
+
+
+    }
+    @FXML
+    protected void mikProcessorsAction(ActionEvent event) {
+
+        antalmiks = antalmiks-antalProcessorsPrice;
+        antalProcessorsPrice = 120+(2*(antalFarmere*10));
+        antalFarmereLabel2.setText(String.valueOf(antalFarmerePrice));
+        antalFarmere++;
+        antalFarmereLabel.setText(String.valueOf(antalFarmere));
+        if (antalmiks <=antalFarmerePrice){autoFarmerButton.setVisible(false);}
+
+
+        // longrunning operation runs on different thread
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
                         myTask();
                     }
                 };
@@ -138,8 +181,11 @@ public class Controller {
     private void mikClipperTask() {
         antalmiks++;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
-    private void myTask() {
+    private void mikFarmerTask() {
         antalmiks= antalmiks+4;
+        antalClipsLabel.setText(String.valueOf(antalmiks));    }
+    private void myTask() {
+        antalmiks= antalmiks+8;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
 
 }
