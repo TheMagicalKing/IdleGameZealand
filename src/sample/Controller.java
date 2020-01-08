@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 
 public class Controller {
 
-    private double antalmiks = 160;
+    private double antalmiks = 360;
     private int antalClippers, antalFarmere, antalProcessors, antalBuilders;
     private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360;
 
@@ -203,7 +203,7 @@ public class Controller {
 
                     @Override
                     public void run() {
-                        mikProcessorsTask();
+                        mikBuilderTask();
                     }
                 };
 

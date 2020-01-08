@@ -89,5 +89,18 @@
          </font>
       </Label>
       <Button fx:id="autoProcessorsButton" mnemonicParsing="false" onAction="#mikProcessorsAction" text="Autofarmer" visible="false" GridPane.rowIndex="8" />
+      <Button fx:id="autoBuildersButton" mnemonicParsing="false" onAction="#mikBuilderAction" text="Mik Builders" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+      <Label fx:id="priceBuildersLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="6" GridPane.rowIndex="7">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="antalBuildersLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="6" GridPane.rowIndex="6">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label text="Price:" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+      <Label text="Antal Mik Builders:" GridPane.columnIndex="5" GridPane.rowIndex="6" />
     </children>
 </GridPane>
