@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 
 public class Controller {
 
-    private double antalmiks = 360;
+    private double antalmiks;
     private int antalClippers, antalFarmere, antalProcessors, antalBuilders;
     private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360;
 
