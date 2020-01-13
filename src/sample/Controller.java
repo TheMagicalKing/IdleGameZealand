@@ -16,10 +16,10 @@ public class Controller {
 
     private double antalmiks=359;
     private int antalClippers, antalFarmere, antalProcessors, antalBuilders, antalBuilderCementMixer;
-    private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360;
+    private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360, buildersProduce;
 
     @FXML
-    private Label antalClipsLabel, antalClippersLabel, priceClippersLabel, antalFarmereLabel, priceFarmereLabel, antalProcessorsLabel, priceProcessorsLabel, antalBuildersLabel, priceBuildersLabel;
+    private Label antalClipsLabel, antalClippersLabel, priceClippersLabel, antalFarmereLabel, priceFarmereLabel, antalProcessorsLabel, priceProcessorsLabel, antalBuildersLabel, priceBuildersLabel, producedBuildersLabel;
 
 
 
@@ -27,7 +27,7 @@ public class Controller {
 
 
     @FXML
-    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton;
+    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, mikMixerButton;
 
     @FXML
     protected void makeMikButtonAction(ActionEvent event) {
@@ -35,10 +35,37 @@ public class Controller {
         antalmiks++;
         antalClipsLabel.setText(String.valueOf(antalmiks));
 
+        if (antalmiks >= antalClippersPrice) {
+            autoclipperButton.setVisible(true);
+        } else if (antalmiks <= antalClippersPrice) {
+            autoclipperButton.setVisible(false);
+        }
+        if (antalmiks >= antalFarmerePrice) {
+            autoFarmerButton.setVisible(true);
+        } else if (antalmiks <= antalFarmerePrice) {
+            autoFarmerButton.setVisible(false);
+        }
+        if (antalmiks >= antalProcessorsPrice) {
+            autoProcessorsButton.setVisible(true);
+        } else if (antalmiks <= antalProcessorsPrice) {
+            autoProcessorsButton.setVisible(false);
+        }
+        if (antalmiks >= antalBuildersPrice) {
+            autoBuildersButton.setVisible(true);
+        } else if (antalmiks <= antalBuildersPrice) {
+            autoBuildersButton.setVisible(false);
+        }if (antalmiks >= antalBuildersPrice) {
+            mikMixerButton .setVisible(true);
+        } else if (antalmiks <= antalBuildersPrice) {
+            mikMixerButton.setVisible(false);
+        }
+        System.out.println(antalBuilderCementMixer);
+        producedBuildersLabel.setText(toString().valueOf((16+antalBuilderCementMixer*5)));
 
 
 
     }
+    //anything related to Mik Clippers
     @FXML
     protected void autoclipperButtonAction(ActionEvent event) {
 
@@ -83,6 +110,8 @@ public class Controller {
 
 
     }
+
+    //anything related to Mik Farmers
     @FXML
     protected void mikFarmerButtonAction(ActionEvent event) {
 
@@ -126,6 +155,8 @@ public class Controller {
 
 
     }
+
+    //anything related to Mik Processors
     @FXML
     protected void mikProcessorsAction(ActionEvent event) {
 
@@ -169,6 +200,8 @@ public class Controller {
 
 
     }
+
+    //anything related to Mik Builders
     @FXML
     protected void mikBuilderAction(ActionEvent event) {
 
@@ -212,8 +245,12 @@ public class Controller {
 
 
     }
-
     @FXML
+    protected void mikBuilderUpgrade(){
+        antalBuilderCementMixer++;
+    }
+
+    @FXML //Todo figure out how to properly use this
     protected void researchScreen(ActionEvent event){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../sample/researchMenu.fxml"));
@@ -232,7 +269,7 @@ public class Controller {
 
     private void mikClipperTask() {
         //todo make upgrades for mikClippers, should be over all less than others
-        antalmiks++;
+        antalmiks = antalmiks+1;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
     private void mikFarmerTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers but less than others

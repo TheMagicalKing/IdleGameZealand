@@ -31,6 +31,8 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
     <children>
         <Button fx:id="makeClipButton" mnemonicParsing="false" onAction="#makeMikButtonAction" text="Makeclip" GridPane.columnIndex="3" GridPane.rowIndex="2" />
@@ -90,8 +92,8 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <Button fx:id="autoProcessorsButton" mnemonicParsing="false" onAction="#mikProcessorsAction" text="Autofarmer" visible="false" GridPane.rowIndex="8" />
-      <Button fx:id="autoBuildersButton" mnemonicParsing="false" onAction="#mikBuilderAction" text="Mik Builders" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+      <Button fx:id="autoProcessorsButton" mnemonicParsing="false" onAction="#mikProcessorsAction" text="Autofarmer" visible="false" GridPane.rowIndex="9" />
+      <Button fx:id="autoBuildersButton" mnemonicParsing="false" onAction="#mikBuilderAction" text="Mik Builders" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="9" />
       <Label fx:id="priceBuildersLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="6" GridPane.rowIndex="7">
          <font>
             <Font size="26.0" />
@@ -104,6 +106,12 @@
       </Label>
       <Label text="Price:" GridPane.columnIndex="5" GridPane.rowIndex="7" />
       <Label text="Antal Mik Builders:" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-      <Button fx:id="autoBuildersupgradesButton" mnemonicParsing="false" onAction="#researchScreen" prefHeight="25.0" prefWidth="122.0" text="Research!" />
+      <Button fx:id="mikMixerButton" mnemonicParsing="false" onAction="#mikBuilderUpgrade" text="Mik Builders" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="10" />
+      <Label text="Antal Miks Produced:" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+      <Label fx:id="producedBuildersLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="6" GridPane.rowIndex="8">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
     </children>
 </GridPane>
