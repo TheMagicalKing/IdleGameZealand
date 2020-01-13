@@ -29,6 +29,8 @@
       <RowConstraints />
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
     </rowConstraints>
     <children>
         <Button fx:id="makeClipButton" mnemonicParsing="false" onAction="#makeMikButtonAction" text="Makeclip" GridPane.columnIndex="3" GridPane.rowIndex="2" />
@@ -102,5 +104,6 @@
       </Label>
       <Label text="Price:" GridPane.columnIndex="5" GridPane.rowIndex="7" />
       <Label text="Antal Mik Builders:" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+      <Button fx:id="autoBuildersupgradesButton" mnemonicParsing="false" onAction="#researchScreen" prefHeight="25.0" prefWidth="122.0" text="Research!" />
     </children>
 </GridPane>

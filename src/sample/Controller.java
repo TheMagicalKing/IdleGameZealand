@@ -3,13 +3,19 @@ package sample;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Controller {
 
-    private double antalmiks;
-    private int antalClippers, antalFarmere, antalProcessors, antalBuilders;
+    private double antalmiks=359;
+    private int antalClippers, antalFarmere, antalProcessors, antalBuilders, antalBuilderCementMixer;
     private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360;
 
     @FXML
@@ -23,37 +29,16 @@ public class Controller {
     @FXML
     private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton;
 
-
     @FXML
     protected void makeMikButtonAction(ActionEvent event) {
 
         antalmiks++;
         antalClipsLabel.setText(String.valueOf(antalmiks));
 
-        if (antalmiks >= antalClippersPrice) {
-            autoclipperButton.setVisible(true);
-        } else if (antalmiks <= antalClippersPrice) {
-            autoclipperButton.setVisible(false);
-        }
-        if (antalmiks >= antalFarmerePrice) {
-            autoFarmerButton.setVisible(true);
-        } else if (antalmiks <= antalFarmerePrice) {
-            autoFarmerButton.setVisible(false);
-        }
-        if (antalmiks >= antalProcessorsPrice) {
-            autoProcessorsButton.setVisible(true);
-        } else if (antalmiks <= antalProcessorsPrice) {
-            autoProcessorsButton.setVisible(false);
-        }
-        if (antalmiks >= antalBuildersPrice) {
-            autoBuildersButton.setVisible(true);
-        } else if (antalmiks <= antalBuildersPrice) {
-            autoBuildersButton.setVisible(false);
-        }
+
 
 
     }
-
     @FXML
     protected void autoclipperButtonAction(ActionEvent event) {
 
@@ -86,6 +71,7 @@ public class Controller {
 
                     // UI update is run on the Application thread
                     Platform.runLater(updater);
+
                 }
             }
 
@@ -227,18 +213,40 @@ public class Controller {
 
     }
 
+    @FXML
+    protected void researchScreen(ActionEvent event){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../sample/researchMenu.fxml"));
+            Parent researchScreenParent = (Parent) fxmlLoader.load();
+            Stage researchStage = new Stage();
+            researchStage.initModality(Modality.APPLICATION_MODAL);
+            researchStage.initStyle(StageStyle.UTILITY);
+            researchStage.setTitle("Edit Menu");
+            researchStage.setScene(new Scene(researchScreenParent));
+            researchStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void mikClipperTask() {
+        //todo make upgrades for mikClippers, should be over all less than others
         antalmiks++;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
     private void mikFarmerTask() {
+        //todo make upgrades for mikFarmers, should be more than mikClippers but less than others
         antalmiks= antalmiks+4;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
     private void mikProcessorsTask() {
+        //todo make upgrades for mikProcessorss, should be more than mikClippers and mikFarmers but less than others
         antalmiks= antalmiks+8;
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
     private void mikBuilderTask() {
-        antalmiks= antalmiks+16;
+        //todo make upgrades for mikFarmers, should be more than mikClippers, mikFarmers and mikprocessors but les than more to come.
+        antalmiks= antalmiks+(16+(antalBuilderCementMixer*5));
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
+
+        //todo move all upgrades to ResearchController!!!!!
 
 }
