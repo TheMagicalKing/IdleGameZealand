@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -15,19 +16,79 @@ import javafx.stage.StageStyle;
 public class Controller {
 
     private double antalmiks=359;
-    private int antalClippers, antalFarmere, antalProcessors, antalBuilders, antalBuilderCementMixer;
+    private int antalClippers, antalClippersUpgrade1, antalClippersUpgrade2, antalClippersUpgrade3, antalClippersUpgrade4, antalFarmere, antalFarmereUpgrade1, antalFarmereUpgrade2, antalFarmereUpgrade3, antalFarmereUpgrade4, antalProcessors, antalProcessorsUpgrade1, antalProcessorsUpgrade2, antalProcessorsUpgrade3, antalProcessorsUpgrade4, antalBuilders, antalBuilderCementMixer, antalBuilderUpgrade2, antalBuilderUpgrade3, antalBuilderUpgrade4;
     private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360, buildersProduce;
 
     @FXML
     private Label antalClipsLabel, antalClippersLabel, priceClippersLabel, antalFarmereLabel, priceFarmereLabel, antalProcessorsLabel, priceProcessorsLabel, antalBuildersLabel, priceBuildersLabel, producedBuildersLabel;
+    @FXML
+    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, mikMixerButton, startButton;
+    @FXML
+    private GridPane startGridPane, gridPaneGame;
+    @FXML
+    protected void startEngine(ActionEvent event){
+        //hide the start game button
+        startButton.setVisible(false);
+        startGridPane.setVisible(false);
+        gridPaneGame.setVisible(true);
+        // longrunning operation runs on different thread
+        Thread thread = new Thread(new Runnable() {
 
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
 
+                    @Override
+                    public void run() {
 
+                    }
+                };
 
+                while (true) {
+                    try {
+                        Thread.sleep(10);
 
+                    } catch (InterruptedException ex) {
+                    }
+                    uiUpdate();
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        // don't let thread prevent JVM shutdown
+        thread.setDaemon(true);
+        thread.start();
+    }
 
     @FXML
-    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, mikMixerButton;
+    protected void uiUpdate(){
+        if (antalmiks >= antalClippersPrice) {
+            autoclipperButton.setVisible(true);
+        } else if (antalmiks <= antalClippersPrice) {
+            autoclipperButton.setVisible(false);
+        }
+        if (antalmiks >= antalFarmerePrice) {
+            autoFarmerButton.setVisible(true);
+        } else if (antalmiks <= antalFarmerePrice) {
+            autoFarmerButton.setVisible(false);
+        }
+        if (antalmiks >= antalProcessorsPrice) {
+            autoProcessorsButton.setVisible(true);
+        } else if (antalmiks <= antalProcessorsPrice) {
+            autoProcessorsButton.setVisible(false);
+        }
+        if (antalmiks >= antalBuildersPrice) {
+            autoBuildersButton.setVisible(true);
+        } else if (antalmiks <= antalBuildersPrice) {
+            autoBuildersButton.setVisible(false);
+        }if (antalmiks >= antalBuildersPrice) {
+            mikMixerButton .setVisible(true);
+        } else if (antalmiks <= antalBuildersPrice) {
+            mikMixerButton.setVisible(false);
+        }
+    }
 
     @FXML
     protected void makeMikButtonAction(ActionEvent event) {
@@ -59,7 +120,7 @@ public class Controller {
         } else if (antalmiks <= antalBuildersPrice) {
             mikMixerButton.setVisible(false);
         }
-        System.out.println(antalBuilderCementMixer);
+
         producedBuildersLabel.setText(toString().valueOf((16+antalBuilderCementMixer*5)));
 
 
@@ -95,7 +156,7 @@ public class Controller {
                         Thread.sleep(1000);
                     } catch (InterruptedException ex) {
                     }
-
+                    uiUpdate();
                     // UI update is run on the Application thread
                     Platform.runLater(updater);
 
@@ -110,6 +171,23 @@ public class Controller {
 
 
     }
+    @FXML
+    protected void mikClipperUpgrade1(){
+        antalClippersUpgrade1++;
+    }
+    @FXML
+    protected void mikClipperUpgrade2(){
+        antalClippersUpgrade2++;
+    }
+    @FXML
+    protected void mikClipperUpgrade3(){
+        antalClippersUpgrade3++;
+    }
+    @FXML
+    protected void mikClipperUpgrade4(){
+        antalClippersUpgrade4++;
+    }
+
 
     //anything related to Mik Farmers
     @FXML
@@ -155,6 +233,22 @@ public class Controller {
 
 
     }
+    @FXML
+    protected void mikFarmerUpgrade1(){
+        antalFarmereUpgrade1++;
+    }
+    @FXML
+    protected void mikFarmerUpgrade2(){
+        antalFarmereUpgrade2++;
+    }
+    @FXML
+    protected void mikFarmerUpgrade3(){
+        antalFarmereUpgrade3++;
+    }
+    @FXML
+    protected void mikFarmerUpgrade4(){
+        antalFarmereUpgrade4++;
+    }
 
     //anything related to Mik Processors
     @FXML
@@ -199,6 +293,22 @@ public class Controller {
 
 
 
+    }
+    @FXML
+    protected void mikProcessorUpgrade1(){
+        antalProcessorsUpgrade1++;
+    }
+    @FXML
+    protected void mikProcessorUpgrade2(){
+        antalProcessorsUpgrade2++;
+    }
+    @FXML
+    protected void mikProcessorUpgrade3(){
+        antalProcessorsUpgrade3++;
+    }
+    @FXML
+    protected void mikProcessorUpgrade4(){
+        antalProcessorsUpgrade4++;
     }
 
     //anything related to Mik Builders
@@ -246,8 +356,20 @@ public class Controller {
 
     }
     @FXML
-    protected void mikBuilderUpgrade(){
+    protected void mikBuilderUpgrade1(){
         antalBuilderCementMixer++;
+    }
+    @FXML
+    protected void mikBuilderUpgrade2(){
+        antalBuilderUpgrade2++;
+    }
+    @FXML
+    protected void mikBuilderUpgrade3(){
+        antalBuilderUpgrade3++;
+    }
+    @FXML
+    protected void mikBuilderUpgrade4(){
+        antalBuilderUpgrade4++;
     }
 
     @FXML //Todo figure out how to properly use this
@@ -269,19 +391,19 @@ public class Controller {
 
     private void mikClipperTask() {
         //todo make upgrades for mikClippers, should be over all less than others
-        antalmiks = antalmiks+1;
+        antalmiks = antalmiks+(1+(antalClippersUpgrade1*5)+(antalClippersUpgrade2*10)+(antalClippersUpgrade3*15)+(antalClippersUpgrade4*20));
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
     private void mikFarmerTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers but less than others
-        antalmiks= antalmiks+4;
+        antalmiks= antalmiks+(4+(antalFarmereUpgrade1*5)+(antalFarmereUpgrade2*10)+(antalFarmereUpgrade3*15)+(antalFarmereUpgrade4*20));
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
     private void mikProcessorsTask() {
         //todo make upgrades for mikProcessorss, should be more than mikClippers and mikFarmers but less than others
-        antalmiks= antalmiks+8;
+        antalmiks= antalmiks+(8+(antalProcessorsUpgrade1*5)+(antalProcessorsUpgrade2*10)+(antalProcessorsUpgrade3*15)+(antalProcessorsUpgrade4*20));
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
     private void mikBuilderTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers, mikFarmers and mikprocessors but les than more to come.
-        antalmiks= antalmiks+(16+(antalBuilderCementMixer*5));
+        antalmiks= antalmiks+(16+(antalBuilderCementMixer*5)+(antalBuilderUpgrade2*10)+(antalBuilderUpgrade3*15)+(antalBuilderUpgrade4*20));
         antalClipsLabel.setText(String.valueOf(antalmiks));    }
 
         //todo move all upgrades to ResearchController!!!!!
