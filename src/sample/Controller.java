@@ -32,7 +32,7 @@ public class Controller {
         startGridPane.setVisible(false);
         gridPaneGame.setVisible(true);
         // longrunning operation runs on different thread
-        Thread thread = new Thread(new Runnable() {
+        Thread update = new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -46,20 +46,78 @@ public class Controller {
 
                 while (true) {
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(1000);
 
                     } catch (InterruptedException ex) {
                     }
                     uiUpdate();
+
                     // UI update is run on the Application thread
                     Platform.runLater(updater);
                 }
             }
 
         });
+        Thread mikClipperTaskThread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+
+                    } catch (InterruptedException ex) {
+                    }
+                    mikClipperTask();
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        Thread mikFarmerTaskThread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+
+                    } catch (InterruptedException ex) {
+                    }
+                    mikFarmerTask();
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+
         // don't let thread prevent JVM shutdown
-        thread.setDaemon(true);
-        thread.start();
+        update.setDaemon(true);
+        update.start();
+        mikClipperTaskThread.setDaemon(true);
+        mikClipperTaskThread.start();
+        mikFarmerTaskThread.setDaemon(true);
+        mikFarmerTaskThread.start();
     }
 
     @FXML
