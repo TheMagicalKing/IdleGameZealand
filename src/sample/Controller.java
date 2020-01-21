@@ -23,21 +23,24 @@ public class Controller {
     private double antalFarmerePrice = 60, antalFarmereUpgrade1Price=360+(antalFarmereUpgrade1*360), antalFarmereUpgrade2Price=720+(antalFarmereUpgrade2*720), antalFarmereUpgrade3Price=1440+(antalFarmereUpgrade3*1440), antalFarmereUpgrade4Price=2880+(antalFarmereUpgrade4*2880);
     //Processor Price and Processor Upgrade Prices
     private double antalProcessorsPrice = 160,  antalProcessorsUpgrade1Price=960+(antalProcessorsUpgrade1*960),  antalProcessorsUpgrade2Price=1920+(antalProcessorsUpgrade2*1920),  antalProcessorsUpgrade3Price=3840+(antalProcessorsUpgrade3*3840),  antalProcessorsUpgrade4Price=7680+(antalProcessorsUpgrade4*7680);
-    //Builder Price and
+    //Builder Price and Builder Upgrade Prices
     private double antalBuildersPrice = 360,  antalBuildersUpgrade1Price=2160+(antalBuilderUpgrade1*2160),  antalBuildersUpgrade2Price=4320+(antalBuilderUpgrade2*4320),  antalBuilderUpgrade3Price=8640+(antalBuilderUpgrade3*8640),  antalBuildersUpgrade4Price=17280+(antalBuilderUpgrade4*17280);
 
+    //Game Title Label
+    @FXML
+    private Label mikTitleLabel;
     //Clippers Labels
     @FXML
-    private Label antalClipsLabelMain, antalClippersLabel, priceClippersLabel ;
+    private Label antalClipsLabelMain, antalClippersLabel, priceClippersLabel, mikClipUpgradeLabel;
     //Farmers Labels
     @FXML
-    private Label antalFarmereLabel, priceFarmereLabel;
+    private Label antalFarmereLabel, priceFarmereLabel, mikFarmUpgradeLabel;
     //Processors Labels
     @FXML
-    private Label antalProcessorsLabel, priceProcessorsLabel;
+    private Label antalProcessorsLabel, priceProcessorsLabel, mikProcessUpgradeLabel;
     //Builders Labels
     @FXML
-    private Label  antalBuildersLabel, priceBuildersLabel, producedBuildersLabel;
+    private Label  antalBuildersLabel, priceBuildersLabel, mikBuildUpgradeLabel;
     @FXML
     private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, mikBuilderUpg1, startButton, clippersUpgradePaneButton, farmersUpgradePaneButton, processorsUpgradePaneButton, buildersUpgradePaneButton;
     @FXML
@@ -63,7 +66,7 @@ public class Controller {
 
                 while (true) {
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(1000);
 
                     } catch (InterruptedException ex) {
                     }
@@ -105,7 +108,64 @@ public class Controller {
         } else if (antalmiks <= antalBuildersPrice) {
             mikBuilderUpg1.setVisible(false);
         }
-        producedBuildersLabel.setText(toString().valueOf(antalBuildersPrice));
+
+    }
+
+    @FXML
+    protected void changeClipperPaneTrue(ActionEvent event){
+        mikClipperPane.setVisible(true);
+        gridPaneGame.setVisible(false);
+        mikClipUpgradeLabel.setVisible(true);
+        mikTitleLabel.setVisible(false);
+    }
+    @FXML
+    protected void changeFarmerPaneTrue(ActionEvent event){
+        mikFarmerPane.setVisible(true);
+        gridPaneGame.setVisible(false);
+        mikFarmUpgradeLabel.setVisible(true);
+        mikTitleLabel.setVisible(false);
+    }
+    @FXML
+    protected void changeProcessorPaneTrue(ActionEvent event){
+        mikProcessorPane.setVisible(true);
+        gridPaneGame.setVisible(false);
+        mikProcessUpgradeLabel.setVisible(true);
+        mikTitleLabel.setVisible(false);
+    }
+    @FXML
+    protected void changeBuilderPaneTrue(ActionEvent event){
+        mikBuilderPane.setVisible(true);
+        gridPaneGame.setVisible(false);
+        mikBuildUpgradeLabel.setVisible(true);
+        mikTitleLabel.setVisible(false);
+    }
+    @FXML
+    protected void changeClipperPaneFalse(ActionEvent event){
+        mikClipperPane.setVisible(false);
+        gridPaneGame.setVisible(true);
+        mikClipUpgradeLabel.setVisible(false);
+        mikTitleLabel.setVisible(true);
+    }
+    @FXML
+    protected void changeFarmerPaneFalse(ActionEvent event){
+        mikFarmerPane.setVisible(false);
+        gridPaneGame.setVisible(true);
+        mikFarmUpgradeLabel.setVisible(false);
+        mikTitleLabel.setVisible(true);
+    }
+    @FXML
+    protected void changeProcessorPaneFalse(ActionEvent event){
+        mikProcessorPane.setVisible(false);
+        gridPaneGame.setVisible(true);
+        mikProcessUpgradeLabel.setVisible(false);
+        mikTitleLabel.setVisible(true);
+    }
+    @FXML
+    protected void changeBuilderPaneFalse(ActionEvent event){
+        mikBuilderPane.setVisible(false);
+        gridPaneGame.setVisible(true);
+        mikBuildUpgradeLabel.setVisible(false);
+        mikTitleLabel.setVisible(true);
     }
 
     @FXML
@@ -139,7 +199,7 @@ public class Controller {
             mikBuilderUpg1.setVisible(false);
         }
 
-        producedBuildersLabel.setText(toString().valueOf((16+antalBuildersPrice*5)));
+
 
 
 

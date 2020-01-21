@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" gridLinesVisible="true" hgap="10" prefHeight="597.0" prefWidth="696.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="597.0" prefWidth="696.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints />
       <ColumnConstraints />
@@ -64,7 +64,12 @@
             <Font size="52.0" />
          </font>
       </Label>
-      <GridPane fx:id="gridPaneGame" gridLinesVisible="true" GridPane.columnIndex="7" GridPane.rowIndex="10">
+        <Label fx:id="mikTitleLabel" text="Paperclips" visible="false" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+            <font>
+                <Font size="52.0" />
+            </font>
+        </Label>
+      <GridPane fx:id="gridPaneGame" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="10">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="119.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.0" minWidth="10.0" prefWidth="98.0" />
@@ -89,11 +94,6 @@
         </rowConstraints>
          <children>
               <Button fx:id="makeClipButton" mnemonicParsing="false" onAction="#makeMikButtonAction" text="Makeclip" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-              <Label text="Paperclips" GridPane.columnIndex="3">
-                  <font>
-                      <Font size="52.0" />
-                  </font>
-              </Label>
               <Label text="Antal miks:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
               <Label fx:id="antalClipsLabelMain" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="2">
                   <GridPane.margin>
@@ -103,11 +103,6 @@
                       <Font size="26.0" />
                   </font>
               </Label>
-              <Button fx:id="autoclipperButton" mnemonicParsing="false" onAction="#autoclipperButtonAction" text="Autoclipper" visible="false" GridPane.rowIndex="5">
-                  <GridPane.margin>
-                      <Insets />
-                  </GridPane.margin>
-              </Button>
               <Label text="Antal clippers:" GridPane.rowIndex="3" />
               <Label text="Price:" GridPane.rowIndex="4" />
             <Label text="Price:" GridPane.columnIndex="5" GridPane.rowIndex="4" />
@@ -122,7 +117,6 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Button fx:id="autoFarmerButton" mnemonicParsing="false" onAction="#mikFarmerButtonAction" text="Autofarmer" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="5" />
             <Label text="Antal Mik Processore:" GridPane.rowIndex="6" />
             <Label fx:id="antalProcessorsLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>
@@ -145,8 +139,6 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Button fx:id="autoProcessorsButton" mnemonicParsing="false" onAction="#mikProcessorsAction" text="Autofarmer" visible="false" GridPane.rowIndex="9" />
-            <Button fx:id="autoBuildersButton" mnemonicParsing="false" onAction="#mikBuilderAction" text="Mik Builders" visible="false" GridPane.columnIndex="5" GridPane.rowIndex="9" />
             <Label fx:id="priceBuildersLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="6" GridPane.rowIndex="7">
                <font>
                   <Font size="26.0" />
@@ -159,10 +151,10 @@
             </Label>
             <Label text="Price:" GridPane.columnIndex="5" GridPane.rowIndex="7" />
             <Label text="Antal Mik Builders:" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-            <Button fx:id="clippersUpgradePane" mnemonicParsing="false" text="Upgrade" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Button fx:id="processorsUpgradePane" mnemonicParsing="false" text="Upgrade" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-            <Button fx:id="buildersUpgradePane" mnemonicParsing="false" text="Upgrade" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
-            <Button fx:id="farmersUpgradePane" mnemonicParsing="false" text="Upgrade" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Button fx:id="clippersUpgradePaneButton" mnemonicParsing="false" onAction="#changeClipperPaneTrue" text="Upgrade" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Button fx:id="processorsUpgradePaneButton" mnemonicParsing="false" onAction="#changeProcessorPaneTrue" text="Upgrade" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+            <Button fx:id="buildersUpgradePaneButton" mnemonicParsing="false" onAction="#changeBuilderPaneTrue" text="Upgrade" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+            <Button fx:id="farmersUpgradePaneButton" mnemonicParsing="false" onAction="#changeFarmerPaneTrue" text="Upgrade" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <GridPane fx:id="startGridPane" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="10">
@@ -180,7 +172,7 @@
             <Button fx:id="startButton" mnemonicParsing="false" onAction="#startEngine" prefHeight="25.0" prefWidth="191.0" text="Start Game" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <GridPane fx:id="mikClipperPane" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="10">
+      <GridPane fx:id="mikClipperPane" GridPane.columnIndex="7" GridPane.rowIndex="10">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -198,11 +190,78 @@
             <Button fx:id="mikClipperUpg2" contentDisplay="CENTER" mnemonicParsing="false" onAction="#mikClipperUpgrade2" text="Upgrade 2" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button fx:id="mikClipperUpg3" contentDisplay="CENTER" mnemonicParsing="false" onAction="#mikClipperUpgrade3" text="Upgrade 3" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
             <Button fx:id="mikClipperUpg4" contentDisplay="CENTER" mnemonicParsing="false" onAction="#mikClipperUpgrade4" text="Upgrade 4" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-            <Label text="Antal miks:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="antalClipsLabelClipUpgrade" alignment="CENTER_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="83.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="mikClipperBack" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeClipperPaneFalse" text="Back" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label fx:id="antalClipsLabelClipUpgrade" alignment="CENTER_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="83.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <font>
                   <Font size="26.0" />
                </font>
+            </Label>
+            <Label fx:id="antalClipsLabelClipUpgrade2" alignment="CENTER_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="83.0" text="0" textAlignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="antalClipsLabelClipUpgrade21" alignment="CENTER_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="83.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="antalClipsLabelClipUpgrade22" alignment="CENTER_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="83.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="antalClipsLabelClipUpgrade23" alignment="CENTER_RIGHT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="38.0" prefWidth="83.0" text="0" textAlignment="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label text="Antal miks:" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin></Label>
+            <Label text="Upgrade 1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label text="Upgrade 4" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label text="Upgrade 3" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label text="Upgrade 2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label text="Upgrade 1's:" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Label text="Upgrade 2's:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label text="Upgrade 3's:" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
+            </Label>
+            <Label text="Upgrade 4's:" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </Label>
          </children>
       </GridPane>
@@ -230,6 +289,7 @@
                   <Font size="26.0" />
                </font>
             </Label>
+            <Button fx:id="mikFarmerBack" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeFarmerPaneFalse" text="Back" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <GridPane fx:id="mikProcessorPane" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="10">
@@ -256,6 +316,7 @@
                   <Font size="26.0" />
                </font>
             </Label>
+            <Button fx:id="mikProcessorBack" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeProcessorPaneFalse" text="Back" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <GridPane fx:id="mikBuilderPane" visible="false" GridPane.columnIndex="7" GridPane.rowIndex="10">
@@ -282,6 +343,7 @@
                   <Font size="26.0" />
                </font>
             </Label>
+            <Button fx:id="mikBuilderBack" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeBuilderPaneFalse" text="Back" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
     </children>
