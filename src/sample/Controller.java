@@ -16,15 +16,32 @@ import javafx.stage.StageStyle;
 public class Controller {
 
     private double antalmiks=359;
-    private int antalClippers, antalClippersUpgrade1, antalClippersUpgrade2, antalClippersUpgrade3, antalClippersUpgrade4, antalFarmere, antalFarmereUpgrade1, antalFarmereUpgrade2, antalFarmereUpgrade3, antalFarmereUpgrade4, antalProcessors, antalProcessorsUpgrade1, antalProcessorsUpgrade2, antalProcessorsUpgrade3, antalProcessorsUpgrade4, antalBuilders, antalBuilderCementMixer, antalBuilderUpgrade2, antalBuilderUpgrade3, antalBuilderUpgrade4;
-    private double antalClippersPrice=10, antalFarmerePrice = 60, antalProcessorsPrice = 160, antalBuildersPrice = 360, buildersProduce;
+    private int antalClippers, antalClippersUpgrade1, antalClippersUpgrade2, antalClippersUpgrade3, antalClippersUpgrade4, antalFarmere, antalFarmereUpgrade1, antalFarmereUpgrade2, antalFarmereUpgrade3, antalFarmereUpgrade4, antalProcessors, antalProcessorsUpgrade1, antalProcessorsUpgrade2, antalProcessorsUpgrade3, antalProcessorsUpgrade4, antalBuilders, antalBuilderUpgrade1, antalBuilderUpgrade2, antalBuilderUpgrade3, antalBuilderUpgrade4;
+    //Clipper Price and Clipper Upgrade Prices
+    private double antalClippersPrice=10, antalClippersUpgrade1Price=60+(antalClippersUpgrade1*60), antalClippersUpgrade2Price=120+(antalClippersUpgrade2*120), antalClippersUpgrade3Price=240+(antalClippersUpgrade3*240), antalClippersUpgrade4Price=480+(antalClippersUpgrade4*480);
+    //Farmer Price and Farmer Upgrade Prices
+    private double antalFarmerePrice = 60, antalFarmereUpgrade1Price=360+(antalFarmereUpgrade1*360), antalFarmereUpgrade2Price=720+(antalFarmereUpgrade2*720), antalFarmereUpgrade3Price=1440+(antalFarmereUpgrade3*1440), antalFarmereUpgrade4Price=2880+(antalFarmereUpgrade4*2880);
+    //Processor Price and Processor Upgrade Prices
+    private double antalProcessorsPrice = 160,  antalProcessorsUpgrade1Price=960+(antalProcessorsUpgrade1*960),  antalProcessorsUpgrade2Price=1920+(antalProcessorsUpgrade2*1920),  antalProcessorsUpgrade3Price=3840+(antalProcessorsUpgrade3*3840),  antalProcessorsUpgrade4Price=7680+(antalProcessorsUpgrade4*7680);
+    //Builder Price and
+    private double antalBuildersPrice = 360,  antalBuildersUpgrade1Price=2160+(antalBuilderUpgrade1*2160),  antalBuildersUpgrade2Price=4320+(antalBuilderUpgrade2*4320),  antalBuilderUpgrade3Price=8640+(antalBuilderUpgrade3*8640),  antalBuildersUpgrade4Price=17280+(antalBuilderUpgrade4*17280);
 
+    //Clippers Labels
     @FXML
-    private Label antalClipsLabel, antalClippersLabel, priceClippersLabel, antalFarmereLabel, priceFarmereLabel, antalProcessorsLabel, priceProcessorsLabel, antalBuildersLabel, priceBuildersLabel, producedBuildersLabel;
+    private Label antalClipsLabelMain, antalClippersLabel, priceClippersLabel ;
+    //Farmers Labels
     @FXML
-    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, mikMixerButton, startButton;
+    private Label antalFarmereLabel, priceFarmereLabel;
+    //Processors Labels
     @FXML
-    private GridPane startGridPane, gridPaneGame;
+    private Label antalProcessorsLabel, priceProcessorsLabel;
+    //Builders Labels
+    @FXML
+    private Label  antalBuildersLabel, priceBuildersLabel, producedBuildersLabel;
+    @FXML
+    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, mikBuilderUpg1, startButton, clippersUpgradePaneButton, farmersUpgradePaneButton, processorsUpgradePaneButton, buildersUpgradePaneButton;
+    @FXML
+    private GridPane startGridPane, gridPaneGame, mikBuilderPane, mikProcessorPane, mikFarmerPane, mikClipperPane;
     @FXML
     protected void startEngine(ActionEvent event){
         //hide the start game button
@@ -84,17 +101,18 @@ public class Controller {
         } else if (antalmiks <= antalBuildersPrice) {
             autoBuildersButton.setVisible(false);
         }if (antalmiks >= antalBuildersPrice) {
-            mikMixerButton .setVisible(true);
+            mikBuilderUpg1.setVisible(true);
         } else if (antalmiks <= antalBuildersPrice) {
-            mikMixerButton.setVisible(false);
+            mikBuilderUpg1.setVisible(false);
         }
+        producedBuildersLabel.setText(toString().valueOf(antalBuildersPrice));
     }
 
     @FXML
     protected void makeMikButtonAction(ActionEvent event) {
 
         antalmiks++;
-        antalClipsLabel.setText(String.valueOf(antalmiks));
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));
 
         if (antalmiks >= antalClippersPrice) {
             autoclipperButton.setVisible(true);
@@ -116,12 +134,12 @@ public class Controller {
         } else if (antalmiks <= antalBuildersPrice) {
             autoBuildersButton.setVisible(false);
         }if (antalmiks >= antalBuildersPrice) {
-            mikMixerButton .setVisible(true);
+            mikBuilderUpg1.setVisible(true);
         } else if (antalmiks <= antalBuildersPrice) {
-            mikMixerButton.setVisible(false);
+            mikBuilderUpg1.setVisible(false);
         }
 
-        producedBuildersLabel.setText(toString().valueOf((16+antalBuilderCementMixer*5)));
+        producedBuildersLabel.setText(toString().valueOf((16+antalBuildersPrice*5)));
 
 
 
@@ -173,7 +191,9 @@ public class Controller {
     }
     @FXML
     protected void mikClipperUpgrade1(){
+        antalmiks=antalmiks-antalClippersUpgrade1Price;
         antalClippersUpgrade1++;
+        //antalClippersUpgrade1;
     }
     @FXML
     protected void mikClipperUpgrade2(){
@@ -357,7 +377,7 @@ public class Controller {
     }
     @FXML
     protected void mikBuilderUpgrade1(){
-        antalBuilderCementMixer++;
+        antalBuilderUpgrade1++;
     }
     @FXML
     protected void mikBuilderUpgrade2(){
@@ -392,20 +412,20 @@ public class Controller {
     private void mikClipperTask() {
         //todo make upgrades for mikClippers, should be over all less than others
         antalmiks = antalmiks+(1+(antalClippersUpgrade1*5)+(antalClippersUpgrade2*10)+(antalClippersUpgrade3*15)+(antalClippersUpgrade4*20));
-        antalClipsLabel.setText(String.valueOf(antalmiks));    }
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
     private void mikFarmerTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers but less than others
         antalmiks= antalmiks+(4+(antalFarmereUpgrade1*5)+(antalFarmereUpgrade2*10)+(antalFarmereUpgrade3*15)+(antalFarmereUpgrade4*20));
-        antalClipsLabel.setText(String.valueOf(antalmiks));    }
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
     private void mikProcessorsTask() {
         //todo make upgrades for mikProcessorss, should be more than mikClippers and mikFarmers but less than others
         antalmiks= antalmiks+(8+(antalProcessorsUpgrade1*5)+(antalProcessorsUpgrade2*10)+(antalProcessorsUpgrade3*15)+(antalProcessorsUpgrade4*20));
-        antalClipsLabel.setText(String.valueOf(antalmiks));    }
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
     private void mikBuilderTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers, mikFarmers and mikprocessors but les than more to come.
-        antalmiks= antalmiks+(16+(antalBuilderCementMixer*5)+(antalBuilderUpgrade2*10)+(antalBuilderUpgrade3*15)+(antalBuilderUpgrade4*20));
-        antalClipsLabel.setText(String.valueOf(antalmiks));    }
+        antalmiks= antalmiks+(16+(antalBuilderUpgrade1*5)+(antalBuilderUpgrade2*10)+(antalBuilderUpgrade3*15)+(antalBuilderUpgrade4*20));
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
 
-        //todo move all upgrades to ResearchController!!!!!
+
 
 }
