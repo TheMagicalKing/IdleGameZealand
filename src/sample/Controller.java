@@ -15,16 +15,16 @@ import javafx.stage.StageStyle;
 
 public class Controller {
 
-    private double antalmiks=359;
+    private double antalmiks;
     private int antalClippers, antalClippersUpgrade1, antalClippersUpgrade2, antalClippersUpgrade3, antalClippersUpgrade4, antalFarmere, antalFarmereUpgrade1, antalFarmereUpgrade2, antalFarmereUpgrade3, antalFarmereUpgrade4, antalProcessors, antalProcessorsUpgrade1, antalProcessorsUpgrade2, antalProcessorsUpgrade3, antalProcessorsUpgrade4, antalBuilders, antalBuilderUpgrade1, antalBuilderUpgrade2, antalBuilderUpgrade3, antalBuilderUpgrade4;
-    //Clipper Price and Clipper Upgrade Prices
-    private double antalClippersPrice=10, antalClippersUpgrade1Price=60+(antalClippersUpgrade1*60), antalClippersUpgrade2Price=120+(antalClippersUpgrade2*120), antalClippersUpgrade3Price=240+(antalClippersUpgrade3*240), antalClippersUpgrade4Price=480+(antalClippersUpgrade4*480);
-    //Farmer Price and Farmer Upgrade Prices
-    private double antalFarmerePrice = 60, antalFarmereUpgrade1Price=360+(antalFarmereUpgrade1*360), antalFarmereUpgrade2Price=720+(antalFarmereUpgrade2*720), antalFarmereUpgrade3Price=1440+(antalFarmereUpgrade3*1440), antalFarmereUpgrade4Price=2880+(antalFarmereUpgrade4*2880);
-    //Processor Price and Processor Upgrade Prices
-    private double antalProcessorsPrice = 160,  antalProcessorsUpgrade1Price=960+(antalProcessorsUpgrade1*960),  antalProcessorsUpgrade2Price=1920+(antalProcessorsUpgrade2*1920),  antalProcessorsUpgrade3Price=3840+(antalProcessorsUpgrade3*3840),  antalProcessorsUpgrade4Price=7680+(antalProcessorsUpgrade4*7680);
-    //Builder Price and Builder Upgrade Prices
-    private double antalBuildersPrice = 360,  antalBuildersUpgrade1Price=2160+(antalBuilderUpgrade1*2160),  antalBuildersUpgrade2Price=4320+(antalBuilderUpgrade2*4320),  antalBuildersUpgrade3Price=8640+(antalBuilderUpgrade3*8640),  antalBuildersUpgrade4Price=17280+(antalBuilderUpgrade4*17280);
+    //Clipper Price and Clipper Upgrade Prices as well as Clipper Production
+    private double antalClippersPrice=10, antalClippersUpgrade1Price=60+(antalClippersUpgrade1*60), antalClippersUpgrade2Price=120+(antalClippersUpgrade2*120), antalClippersUpgrade3Price=240+(antalClippersUpgrade3*240), antalClippersUpgrade4Price=480+(antalClippersUpgrade4*480), clipperProduction=1*antalClippers;
+    //Farmer Price and Farmer Upgrade Prices as well as Farmer Production
+    private double antalFarmerePrice = 60, antalFarmereUpgrade1Price=360+(antalFarmereUpgrade1*360), antalFarmereUpgrade2Price=720+(antalFarmereUpgrade2*720), antalFarmereUpgrade3Price=1440+(antalFarmereUpgrade3*1440), antalFarmereUpgrade4Price=2880+(antalFarmereUpgrade4*2880), farmProduction=4*antalFarmere;
+    //Processor Price and Processor Upgrade Prices as well as Processor Production
+    private double antalProcessorsPrice = 160,  antalProcessorsUpgrade1Price=960+(antalProcessorsUpgrade1*960),  antalProcessorsUpgrade2Price=1920+(antalProcessorsUpgrade2*1920),  antalProcessorsUpgrade3Price=3840+(antalProcessorsUpgrade3*3840),  antalProcessorsUpgrade4Price=7680+(antalProcessorsUpgrade4*7680), processorProduction=8*antalProcessors;
+    //Builder Price and Builder Upgrade Prices as well as Builder Production
+    private double antalBuildersPrice = 360,  antalBuildersUpgrade1Price=2160+(antalBuilderUpgrade1*2160),  antalBuildersUpgrade2Price=4320+(antalBuilderUpgrade2*4320),  antalBuildersUpgrade3Price=8640+(antalBuilderUpgrade3*8640),  antalBuildersUpgrade4Price=17280+(antalBuilderUpgrade4*17280), builderProduction=16*antalBuilders;
 
     //Game Related stuff, like titles, amount of miks produced, etc
 
@@ -70,7 +70,25 @@ public class Controller {
 
                     @Override
                     public void run() {
-
+                        for (int i=0; i<5;i++){
+                            switch (i){
+                                case 0:
+                                    uiUpdate();
+                                    break;
+                                case 1:
+                                    mikBuilderTask();
+                                    break;
+                                case 2:
+                                    mikFarmerTask();
+                                    break;
+                                case 3:
+                                    mikClipperTask();
+                                    break;
+                                case 4:
+                                    mikProcessorsTask();
+                                    break;
+                            }
+                        }
                     }
                 };
 
@@ -265,42 +283,9 @@ public class Controller {
         antalClippersPrice = antalClippersPrice+(antalClippers*3.5);
         priceClippersLabel.setText(String.valueOf(antalClippersPrice));
         antalClippers++;
+        clipperProduction=1*antalClippers;
         antalClippersLabel.setText(String.valueOf(antalClippers));
         if (antalmiks <=antalClippersPrice){autoclipperButton.setVisible(false);}
-
-
-        // longrunning operation runs on different thread
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                Runnable updater = new Runnable() {
-
-                    @Override
-                    public void run() {
-                        mikClipperTask();
-                    }
-                };
-
-                while (true) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                    }
-                    uiUpdate();
-                    // UI update is run on the Application thread
-                    Platform.runLater(updater);
-
-                }
-            }
-
-        });
-        // don't let thread prevent JVM shutdown
-        thread.setDaemon(true);
-        thread.start();
-
-
-
     }
     @FXML
     protected void mikClipperUpgrade1(){
@@ -336,42 +321,10 @@ public class Controller {
         antalFarmerePrice = antalFarmerePrice+(2*(antalFarmere*10));
         priceFarmereLabel.setText(String.valueOf(antalFarmerePrice));
         antalFarmere++;
+        farmProduction=4*antalFarmere;
         antalFarmereLabel.setText(String.valueOf(antalFarmere));
         if (antalmiks <=antalFarmerePrice){autoFarmerButton.setVisible(false);}
-
-
-        // longrunning operation runs on different thread
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                Runnable updater = new Runnable() {
-
-                    @Override
-                    public void run() {
-                        mikFarmerTask();
-                    }
-                };
-
-                while (true) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                    }
-
-                    // UI update is run on the Application thread
-                    Platform.runLater(updater);
-                }
-            }
-
-        });
-        // don't let thread prevent JVM shutdown
-        thread.setDaemon(true);
-        thread.start();
-
-
-
-    }
+}
     @FXML
     protected void mikFarmerUpgrade1(){
         antalmiks=antalmiks-antalFarmereUpgrade1Price;
@@ -405,42 +358,10 @@ public class Controller {
         antalProcessorsPrice = antalProcessorsPrice+(2*(antalProcessors*10));
         priceProcessorsLabel.setText(String.valueOf(antalProcessorsPrice));
         antalProcessors++;
+        processorProduction=8*antalProcessors;
         antalProcessorsLabel.setText(String.valueOf(antalProcessors));
         if (antalmiks <=antalProcessorsPrice){autoProcessorsButton.setVisible(false);}
-
-
-        // longrunning operation runs on different thread
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                Runnable updater = new Runnable() {
-
-                    @Override
-                    public void run() {
-                        mikProcessorsTask();
-                    }
-                };
-
-                while (true) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                    }
-
-                    // UI update is run on the Application thread
-                    Platform.runLater(updater);
-                }
-            }
-
-        });
-        // don't let thread prevent JVM shutdown
-        thread.setDaemon(true);
-        thread.start();
-
-
-
-    }
+ }
     @FXML
     protected void mikProcessorUpgrade1(){
         antalmiks=antalmiks-antalProcessorsUpgrade1Price;
@@ -474,42 +395,10 @@ public class Controller {
         antalBuildersPrice = antalBuildersPrice+(2*(antalProcessors*10));
         priceBuildersLabel.setText(String.valueOf(antalBuildersPrice));
         antalBuilders++;
+        builderProduction=16*antalBuilders;
         antalBuildersLabel.setText(String.valueOf(antalBuilders));
         if (antalmiks <=antalBuildersPrice){autoBuildersButton.setVisible(false);}
-
-
-        // longrunning operation runs on different thread
-        Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                Runnable updater = new Runnable() {
-
-                    @Override
-                    public void run() {
-                        mikBuilderTask();
-                    }
-                };
-
-                while (true) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException ex) {
-                    }
-
-                    // UI update is run on the Application thread
-                    Platform.runLater(updater);
-                }
-            }
-
-        });
-        // don't let thread prevent JVM shutdown
-        thread.setDaemon(true);
-        thread.start();
-
-
-
-    }
+        }
     @FXML
     protected void mikBuilderUpgrade1(){
         antalmiks=antalmiks-antalBuildersUpgrade1Price;
@@ -540,7 +429,7 @@ public class Controller {
 
     private void mikClipperTask() {
         //todo make upgrades for mikClippers, should be over all less than others
-        antalmiks = antalmiks+(1+(antalClippersUpgrade1*5)+(antalClippersUpgrade2*10)+(antalClippersUpgrade3*15)+(antalClippersUpgrade4*20));
+        antalmiks = antalmiks+(clipperProduction+(antalClippersUpgrade1*5)+(antalClippersUpgrade2*10)+(antalClippersUpgrade3*15)+(antalClippersUpgrade4*20));
         antalClipsLabelMain.setText(String.valueOf(antalmiks));
         antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
         antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
@@ -549,7 +438,7 @@ public class Controller {
         }
     private void mikFarmerTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers but less than others
-        antalmiks= antalmiks+(4+(antalFarmereUpgrade1*5)+(antalFarmereUpgrade2*10)+(antalFarmereUpgrade3*15)+(antalFarmereUpgrade4*20));
+        antalmiks= antalmiks+(farmProduction+(antalFarmereUpgrade1*5)+(antalFarmereUpgrade2*10)+(antalFarmereUpgrade3*15)+(antalFarmereUpgrade4*20));
         antalClipsLabelMain.setText(String.valueOf(antalmiks));
         antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
         antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
@@ -558,7 +447,7 @@ public class Controller {
     }
     private void mikProcessorsTask() {
         //todo make upgrades for mikProcessorss, should be more than mikClippers and mikFarmers but less than others
-        antalmiks= antalmiks+(8+(antalProcessorsUpgrade1*5)+(antalProcessorsUpgrade2*10)+(antalProcessorsUpgrade3*15)+(antalProcessorsUpgrade4*20));
+        antalmiks= antalmiks+(processorProduction+(antalProcessorsUpgrade1*5)+(antalProcessorsUpgrade2*10)+(antalProcessorsUpgrade3*15)+(antalProcessorsUpgrade4*20));
         antalClipsLabelMain.setText(String.valueOf(antalmiks));
         antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
         antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
@@ -567,14 +456,11 @@ public class Controller {
         }
     private void mikBuilderTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers, mikFarmers and mikprocessors but les than more to come.
-        antalmiks= antalmiks+(16+(antalBuilderUpgrade1*5)+(antalBuilderUpgrade2*10)+(antalBuilderUpgrade3*15)+(antalBuilderUpgrade4*20));
+        antalmiks= antalmiks+(builderProduction+(antalBuilderUpgrade1*5)+(antalBuilderUpgrade2*10)+(antalBuilderUpgrade3*15)+(antalBuilderUpgrade4*20));
         antalClipsLabelMain.setText(String.valueOf(antalmiks));
         antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
         antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
         antalMiksProcUpgrade.setText(String.valueOf(antalmiks));
         antalMiksBuildUpgrade.setText(String.valueOf(antalmiks));
         }
-
-
-
 }
