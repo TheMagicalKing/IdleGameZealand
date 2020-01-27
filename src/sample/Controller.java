@@ -24,25 +24,34 @@ public class Controller {
     //Processor Price and Processor Upgrade Prices
     private double antalProcessorsPrice = 160,  antalProcessorsUpgrade1Price=960+(antalProcessorsUpgrade1*960),  antalProcessorsUpgrade2Price=1920+(antalProcessorsUpgrade2*1920),  antalProcessorsUpgrade3Price=3840+(antalProcessorsUpgrade3*3840),  antalProcessorsUpgrade4Price=7680+(antalProcessorsUpgrade4*7680);
     //Builder Price and Builder Upgrade Prices
-    private double antalBuildersPrice = 360,  antalBuildersUpgrade1Price=2160+(antalBuilderUpgrade1*2160),  antalBuildersUpgrade2Price=4320+(antalBuilderUpgrade2*4320),  antalBuilderUpgrade3Price=8640+(antalBuilderUpgrade3*8640),  antalBuildersUpgrade4Price=17280+(antalBuilderUpgrade4*17280);
+    private double antalBuildersPrice = 360,  antalBuildersUpgrade1Price=2160+(antalBuilderUpgrade1*2160),  antalBuildersUpgrade2Price=4320+(antalBuilderUpgrade2*4320),  antalBuildersUpgrade3Price=8640+(antalBuilderUpgrade3*8640),  antalBuildersUpgrade4Price=17280+(antalBuilderUpgrade4*17280);
 
-    //Game Title Label
+    //Game Related stuff, like titles, amount of miks produced, etc
+
     @FXML
-    private Label mikTitleLabel;
+    private Label mikTitleLabel, antalMiksClipsUpgrade, antalMiksFarmUpgrade, antalMiksProcUpgrade, antalMiksBuildUpgrade;
     //Clippers Labels
     @FXML
-    private Label antalClipsLabelMain, antalClippersLabel, priceClippersLabel, mikClipUpgradeLabel;
+    private Label antalClipsLabelMain, antalClippersLabel, priceClippersLabel, mikClipUpgradeLabel, antalMikClippersUpgrade1, antalMikClippersUpgrade2, antalMikClippersUpgrade3, antalMikClippersUpgrade4;
     //Farmers Labels
     @FXML
-    private Label antalFarmereLabel, priceFarmereLabel, mikFarmUpgradeLabel;
+    private Label antalFarmereLabel, priceFarmereLabel, mikFarmUpgradeLabel, antalMikFarmUpgrade1, antalMikFarmUpgrade2, antalMikFarmUpgrade3, antalMikFarmUpgrade4;
     //Processors Labels
     @FXML
-    private Label antalProcessorsLabel, priceProcessorsLabel, mikProcessUpgradeLabel;
+    private Label antalProcessorsLabel, priceProcessorsLabel, mikProcessUpgradeLabel, antalMikProcUpgrade1, antalMikProcUpgrade2, antalMikProcUpgrade3, antalMikProcUpgrade4;
     //Builders Labels
     @FXML
-    private Label  antalBuildersLabel, priceBuildersLabel, mikBuildUpgradeLabel;
-    @FXML
-    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, mikBuilderUpg1, startButton, clippersUpgradePaneButton, farmersUpgradePaneButton, processorsUpgradePaneButton, buildersUpgradePaneButton;
+    private Label  antalBuildersLabel, priceBuildersLabel, mikBuildUpgradeLabel, antalMikBuildUpgrade1, antalMikBuildUpgrade2, antalMikBuildUpgrade3, antalMikBuildUpgrade4;
+    @FXML //Mainscreen buttons
+    private Button autoclipperButton, autoFarmerButton, autoProcessorsButton, autoBuildersButton, startButton;
+    @FXML//Mik Clipper Upgrade Buttons
+    private Button mikClipperUpg1, mikClipperUpg2, mikClipperUpg3, mikClipperUpg4;
+    @FXML//Mik Farmer Upgrade Buttons
+    private Button mikFarmerUpg1, mikFarmerUpg2, mikFarmerUpg3, mikFarmerUpg4;
+    @FXML//Mik Processor Upgrade Buttons
+    private Button mikProcUpg1, mikProcUpg2, mikProcUpg3, mikProcUpg4;
+    @FXML//Mik Builder Upgrade Buttons
+    private Button mikBuildUpg1, mikBuildUpg2, mikBuildUpg3, mikBuildUpg4;
     @FXML
     private GridPane startGridPane, gridPaneGame, mikBuilderPane, mikProcessorPane, mikFarmerPane, mikClipperPane;
     @FXML
@@ -51,6 +60,7 @@ public class Controller {
         startButton.setVisible(false);
         startGridPane.setVisible(false);
         gridPaneGame.setVisible(true);
+
         // longrunning operation runs on different thread
         Thread thread = new Thread(new Runnable() {
 
@@ -71,6 +81,8 @@ public class Controller {
                     } catch (InterruptedException ex) {
                     }
                     uiUpdate();
+
+
                     // UI update is run on the Application thread
                     Platform.runLater(updater);
                 }
@@ -84,29 +96,93 @@ public class Controller {
 
     @FXML
     protected void uiUpdate(){
+
         if (antalmiks >= antalClippersPrice) {
             autoclipperButton.setVisible(true);
-        } else if (antalmiks <= antalClippersPrice) {
+        } else if (antalmiks < antalClippersPrice) {
             autoclipperButton.setVisible(false);
         }
         if (antalmiks >= antalFarmerePrice) {
             autoFarmerButton.setVisible(true);
-        } else if (antalmiks <= antalFarmerePrice) {
+        } else if (antalmiks < antalFarmerePrice) {
             autoFarmerButton.setVisible(false);
         }
         if (antalmiks >= antalProcessorsPrice) {
             autoProcessorsButton.setVisible(true);
-        } else if (antalmiks <= antalProcessorsPrice) {
+        } else if (antalmiks < antalProcessorsPrice) {
             autoProcessorsButton.setVisible(false);
         }
         if (antalmiks >= antalBuildersPrice) {
             autoBuildersButton.setVisible(true);
-        } else if (antalmiks <= antalBuildersPrice) {
+        } else if (antalmiks < antalBuildersPrice) {
             autoBuildersButton.setVisible(false);
-        }if (antalmiks >= antalBuildersPrice) {
-            mikBuilderUpg1.setVisible(true);
-        } else if (antalmiks <= antalBuildersPrice) {
-            mikBuilderUpg1.setVisible(false);
+        }
+        if (antalmiks >= antalClippersUpgrade1Price){
+            mikClipperUpg1.setVisible(true);
+        }else if (antalmiks < antalClippersUpgrade1Price){
+            mikClipperUpg1.setVisible(false);
+        }if (antalmiks >= antalClippersUpgrade2Price){
+            mikClipperUpg2.setVisible(true);
+        }else if (antalmiks < antalClippersUpgrade2Price){
+            mikClipperUpg2.setVisible(false);
+        }if (antalmiks >= antalClippersUpgrade3Price){
+            mikClipperUpg3.setVisible(true);
+        }else if (antalmiks < antalClippersUpgrade3Price){
+            mikClipperUpg3.setVisible(false);
+        }if (antalmiks >= antalClippersUpgrade4Price){
+            mikClipperUpg4.setVisible(true);
+        }else if (antalmiks < antalClippersUpgrade4Price){
+            mikClipperUpg4.setVisible(false);
+        }if (antalmiks >= antalFarmereUpgrade1Price){
+            mikFarmerUpg1.setVisible(true);
+        }else if (antalmiks < antalFarmereUpgrade1Price){
+            mikFarmerUpg1.setVisible(false);
+        }if (antalmiks >= antalFarmereUpgrade2Price){
+            mikFarmerUpg2.setVisible(true);
+        }else if (antalmiks < antalFarmereUpgrade2Price){
+            mikFarmerUpg2.setVisible(false);
+        }if (antalmiks >= antalFarmereUpgrade3Price){
+            mikFarmerUpg3.setVisible(true);
+        }else if (antalmiks < antalFarmereUpgrade3Price){
+            mikFarmerUpg3.setVisible(false);
+        }if (antalmiks >= antalFarmereUpgrade4Price){
+            mikFarmerUpg4.setVisible(true);
+        }else if (antalmiks < antalFarmereUpgrade4Price){
+            mikFarmerUpg4.setVisible(false);
+        }
+        if (antalmiks >= antalProcessorsUpgrade1Price){
+            mikProcUpg1.setVisible(true);
+        }else if (antalmiks < antalProcessorsUpgrade1Price){
+            mikProcUpg1.setVisible(false);
+        }if (antalmiks >= antalProcessorsUpgrade2Price){
+            mikProcUpg2.setVisible(true);
+        }else if (antalmiks < antalProcessorsUpgrade2Price){
+            mikProcUpg2.setVisible(false);
+        }if (antalmiks >= antalProcessorsUpgrade3Price){
+            mikProcUpg3.setVisible(true);
+        }else if (antalmiks < antalProcessorsUpgrade3Price){
+            mikProcUpg3.setVisible(false);
+        }if (antalmiks >= antalProcessorsUpgrade4Price){
+            mikProcUpg4.setVisible(true);
+        }else if (antalmiks < antalProcessorsUpgrade4Price){
+            mikProcUpg4.setVisible(false);
+        }
+        if (antalmiks >= antalBuildersUpgrade1Price){
+            mikBuildUpg1.setVisible(true);
+        }else if (antalmiks < antalBuildersUpgrade1Price){
+            mikBuildUpg1.setVisible(false);
+        }if (antalmiks >= antalBuildersUpgrade2Price){
+            mikBuildUpg2.setVisible(true);
+        }else if (antalmiks < antalBuildersUpgrade2Price){
+            mikBuildUpg2.setVisible(false);
+        }if (antalmiks >= antalBuildersUpgrade3Price){
+            mikBuildUpg3.setVisible(true);
+        }else if (antalmiks < antalBuildersUpgrade3Price){
+            mikBuildUpg3.setVisible(false);
+        }if (antalmiks >= antalBuildersUpgrade4Price){
+            mikBuildUpg4.setVisible(true);
+        }else if (antalmiks < antalBuildersUpgrade4Price){
+            mikBuildUpg4.setVisible(false);
         }
 
     }
@@ -174,30 +250,7 @@ public class Controller {
         antalmiks++;
         antalClipsLabelMain.setText(String.valueOf(antalmiks));
 
-        if (antalmiks >= antalClippersPrice) {
-            autoclipperButton.setVisible(true);
-        } else if (antalmiks <= antalClippersPrice) {
-            autoclipperButton.setVisible(false);
-        }
-        if (antalmiks >= antalFarmerePrice) {
-            autoFarmerButton.setVisible(true);
-        } else if (antalmiks <= antalFarmerePrice) {
-            autoFarmerButton.setVisible(false);
-        }
-        if (antalmiks >= antalProcessorsPrice) {
-            autoProcessorsButton.setVisible(true);
-        } else if (antalmiks <= antalProcessorsPrice) {
-            autoProcessorsButton.setVisible(false);
-        }
-        if (antalmiks >= antalBuildersPrice) {
-            autoBuildersButton.setVisible(true);
-        } else if (antalmiks <= antalBuildersPrice) {
-            autoBuildersButton.setVisible(false);
-        }if (antalmiks >= antalBuildersPrice) {
-            mikBuilderUpg1.setVisible(true);
-        } else if (antalmiks <= antalBuildersPrice) {
-            mikBuilderUpg1.setVisible(false);
-        }
+
 
 
 
@@ -253,19 +306,25 @@ public class Controller {
     protected void mikClipperUpgrade1(){
         antalmiks=antalmiks-antalClippersUpgrade1Price;
         antalClippersUpgrade1++;
-        //antalClippersUpgrade1;
+        antalMikClippersUpgrade1.setText(String.valueOf(antalClippersUpgrade1));
     }
     @FXML
     protected void mikClipperUpgrade2(){
+        antalmiks=antalmiks-antalClippersUpgrade2Price;
         antalClippersUpgrade2++;
+        antalMikClippersUpgrade2.setText(String.valueOf(antalClippersUpgrade2));
     }
     @FXML
     protected void mikClipperUpgrade3(){
+        antalmiks=antalmiks-antalClippersUpgrade3Price;
         antalClippersUpgrade3++;
+        antalMikClippersUpgrade3.setText(String.valueOf(antalClippersUpgrade3));
     }
     @FXML
     protected void mikClipperUpgrade4(){
+        antalmiks=antalmiks-antalClippersUpgrade4Price;
         antalClippersUpgrade4++;
+        antalMikClippersUpgrade4.setText(String.valueOf(antalClippersUpgrade4));
     }
 
 
@@ -315,19 +374,27 @@ public class Controller {
     }
     @FXML
     protected void mikFarmerUpgrade1(){
+        antalmiks=antalmiks-antalFarmereUpgrade1Price;
         antalFarmereUpgrade1++;
+        antalMikFarmUpgrade1.setText(String.valueOf(antalFarmereUpgrade1));
     }
     @FXML
     protected void mikFarmerUpgrade2(){
+        antalmiks=antalmiks-antalFarmereUpgrade2Price;
         antalFarmereUpgrade2++;
+        antalMikFarmUpgrade2.setText(String.valueOf(antalFarmereUpgrade2));
     }
     @FXML
     protected void mikFarmerUpgrade3(){
+        antalmiks=antalmiks-antalFarmereUpgrade3Price;
         antalFarmereUpgrade3++;
+        antalMikFarmUpgrade1.setText(String.valueOf(antalFarmereUpgrade3));
     }
     @FXML
     protected void mikFarmerUpgrade4(){
+        antalmiks=antalmiks-antalFarmereUpgrade4Price;
         antalFarmereUpgrade4++;
+        antalMikFarmUpgrade4.setText(String.valueOf(antalFarmereUpgrade4));
     }
 
     //anything related to Mik Processors
@@ -376,19 +443,27 @@ public class Controller {
     }
     @FXML
     protected void mikProcessorUpgrade1(){
+        antalmiks=antalmiks-antalProcessorsUpgrade1Price;
         antalProcessorsUpgrade1++;
+        antalMikProcUpgrade1.setText(String.valueOf(antalProcessorsUpgrade1));
     }
     @FXML
     protected void mikProcessorUpgrade2(){
+        antalmiks=antalmiks-antalProcessorsUpgrade2Price;
         antalProcessorsUpgrade2++;
+        antalMikProcUpgrade2.setText(String.valueOf(antalProcessorsUpgrade2));
     }
     @FXML
     protected void mikProcessorUpgrade3(){
+        antalmiks=antalmiks-antalProcessorsUpgrade3Price;
         antalProcessorsUpgrade3++;
+        antalMikProcUpgrade3.setText(String.valueOf(antalProcessorsUpgrade3));
     }
     @FXML
     protected void mikProcessorUpgrade4(){
+        antalmiks=antalmiks-antalProcessorsUpgrade4Price;
         antalProcessorsUpgrade4++;
+        antalMikProcUpgrade4.setText(String.valueOf(antalProcessorsUpgrade4));
     }
 
     //anything related to Mik Builders
@@ -437,54 +512,68 @@ public class Controller {
     }
     @FXML
     protected void mikBuilderUpgrade1(){
+        antalmiks=antalmiks-antalBuildersUpgrade1Price;
         antalBuilderUpgrade1++;
+        antalMikBuildUpgrade1.setText(String.valueOf(antalBuilderUpgrade1));
     }
     @FXML
     protected void mikBuilderUpgrade2(){
+        antalmiks=antalmiks-antalBuildersUpgrade2Price;
         antalBuilderUpgrade2++;
+        antalMikBuildUpgrade1.setText(String.valueOf(antalBuilderUpgrade2));
     }
     @FXML
     protected void mikBuilderUpgrade3(){
+        antalmiks=antalmiks-antalBuildersUpgrade3Price;
         antalBuilderUpgrade3++;
+        antalMikBuildUpgrade1.setText(String.valueOf(antalBuilderUpgrade3));
     }
     @FXML
     protected void mikBuilderUpgrade4(){
+        antalmiks=antalmiks-antalBuildersUpgrade4Price;
         antalBuilderUpgrade4++;
+        antalMikBuildUpgrade1.setText(String.valueOf(antalBuilderUpgrade4));
     }
 
-    @FXML //Todo figure out how to properly use this
-    protected void researchScreen(ActionEvent event){
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../sample/researchMenu.fxml"));
-            Parent researchScreenParent = (Parent) fxmlLoader.load();
-            Stage researchStage = new Stage();
-            researchStage.initModality(Modality.APPLICATION_MODAL);
-            researchStage.initStyle(StageStyle.UTILITY);
-            researchStage.setTitle("Edit Menu");
-            researchStage.setScene(new Scene(researchScreenParent));
-            researchStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
 
     private void mikClipperTask() {
         //todo make upgrades for mikClippers, should be over all less than others
         antalmiks = antalmiks+(1+(antalClippersUpgrade1*5)+(antalClippersUpgrade2*10)+(antalClippersUpgrade3*15)+(antalClippersUpgrade4*20));
-        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));
+        antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksProcUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksBuildUpgrade.setText(String.valueOf(antalmiks));
+        }
     private void mikFarmerTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers but less than others
         antalmiks= antalmiks+(4+(antalFarmereUpgrade1*5)+(antalFarmereUpgrade2*10)+(antalFarmereUpgrade3*15)+(antalFarmereUpgrade4*20));
-        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));
+        antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksProcUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksBuildUpgrade.setText(String.valueOf(antalmiks));
+    }
     private void mikProcessorsTask() {
         //todo make upgrades for mikProcessorss, should be more than mikClippers and mikFarmers but less than others
         antalmiks= antalmiks+(8+(antalProcessorsUpgrade1*5)+(antalProcessorsUpgrade2*10)+(antalProcessorsUpgrade3*15)+(antalProcessorsUpgrade4*20));
-        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));
+        antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksProcUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksBuildUpgrade.setText(String.valueOf(antalmiks));
+        }
     private void mikBuilderTask() {
         //todo make upgrades for mikFarmers, should be more than mikClippers, mikFarmers and mikprocessors but les than more to come.
         antalmiks= antalmiks+(16+(antalBuilderUpgrade1*5)+(antalBuilderUpgrade2*10)+(antalBuilderUpgrade3*15)+(antalBuilderUpgrade4*20));
-        antalClipsLabelMain.setText(String.valueOf(antalmiks));    }
+        antalClipsLabelMain.setText(String.valueOf(antalmiks));
+        antalMiksClipsUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksFarmUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksProcUpgrade.setText(String.valueOf(antalmiks));
+        antalMiksBuildUpgrade.setText(String.valueOf(antalmiks));
+        }
 
 
 
