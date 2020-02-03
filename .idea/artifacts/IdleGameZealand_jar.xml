@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="IdleGameZealand:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/IdleGameZealand_jar</output-path>
+    <root id="archive" name="IdleGameZealand.jar">
+      <element id="module-output" name="IdleGameZealand" />
+    </root>
+  </artifact>
+</component>
