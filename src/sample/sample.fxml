@@ -64,7 +64,7 @@
             <Font size="52.0" />
          </font>
       </Label>
-        <Label fx:id="mikTitleLabel" text="Paperclips" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+        <Label fx:id="mikTitleLabel" text="Mik clips" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="9">
             <font>
                 <Font size="52.0" />
             </font>
@@ -94,7 +94,7 @@
             <RowConstraints />
         </rowConstraints>
          <children>
-              <Button fx:id="makeClipButton" mnemonicParsing="false" onAction="#makeMikButtonAction" text="Makeclip" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+              <Button fx:id="makeClipButton" mnemonicParsing="false" onAction="#makeMikButtonAction" text="Make Miks" GridPane.columnIndex="3" GridPane.rowIndex="3" />
               <Label text="Antal miks:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
               <Label fx:id="antalClipsLabelMain" text="0" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="2">
                   <GridPane.margin>
@@ -104,7 +104,7 @@
                       <Font size="26.0" />
                   </font>
               </Label>
-              <Label text="Antal clippers:" GridPane.rowIndex="3" />
+              <Label text="Antal Mik Clippers:" GridPane.rowIndex="3" />
               <Label text="Price:" GridPane.rowIndex="4" />
             <Label text="Price:" GridPane.columnIndex="5" GridPane.rowIndex="4" />
             <Label fx:id="priceFarmereLabel" text="0" textAlignment="RIGHT" GridPane.columnIndex="6" GridPane.rowIndex="4">
